@@ -7,8 +7,8 @@ from kivy.uix.label import Label
 from kivy.uix.widget import Widget
 
 # Import other screens
-from .ScreenClasses import MapScreen
-from .ScreenClasses import ProfileScreen
+from ScreenClasses import MapScreen
+from ScreenClasses import ProfileScreen
 
 
 class PussyPatrol(Widget):
