@@ -29,7 +29,7 @@ def new_sighting(Gps, DateTime, AnimalID, Username ):
 def update_sighting_Username(NewUserName,Username):
   database = sqlite3.connect("database.db")
   c = database.cursor()
-  c.execute("""UPDATE Sightings SET Username = ? WHERE Username = ? """, (NewUsername, Username))
+  c.execute("""UPDATE Sightings SET Username = ? WHERE Username = ? """, (NewUserName, Username))
   database.commit()
   database.close()
       
