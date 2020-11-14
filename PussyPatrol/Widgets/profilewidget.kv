@@ -4,3 +4,15 @@
     Label:
         font_size: 16
         text: "profile"
+
+    ScrollView:
+        do_scroll_x: False
+        do_scroll_y: True
+
+        Label:
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width
+            padding: 10, 10
+            text:
+                'AAAA\n' * 100
