@@ -15,6 +15,8 @@ def create_table_sightings():
   AnimalID VARCHAR NOT NULL,
   Username VARCHAR NOT NULL)""")
 
+
+##Adds new sighting and creates a uuid for Asid
 def new_sighting(Gps, DateTime, AnimalID, Username ):
   Asid = uuid.uuid1()
   database = sqlite3.connect("database.db")
