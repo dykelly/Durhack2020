@@ -1,5 +1,6 @@
 import sqlite3
 import uuid
+from PussyPatrol.Sighting import Sighting
 
 ##Labelling as follows: Asid = animal sighting id; Gps and DateTime are obvious; AnimalID = The ID for a specific individual animal i.e Mittens ; Username = username of user who logged the sighting
 
@@ -21,15 +22,19 @@ def create_table_sightings():
 
 ##Adds new sighting and creates a uuid for Asid
 def new_sighting(Lat, Lon, DateTime, AnimalID, Username, AnimalType ):
-  Asid = uuid.uuid1()
+  Asid = str(uuid.uuid1())
+  print(Asid)
   database = sqlite3.connect("database.db")
   c = database.cursor()
   try:
     c.execute("""INSERT INTO Sightings VALUES (?,?,?,?,?,?,?)""",(Asid, Lat, Lon , DateTime, AnimalID, Username, AnimalType))
-  except:
+    database.commit()
+    database.close()
+    return Asid
+  except Exception as e:
+    print(f'Exception occured: {e}')
     return False
-  database.commit()
-  database.close()
+
 
 ##updates spectifcally the AnimalID for a sighting, doesn't check it if an animalID is already assigned
 def update_sighting_AnimalID(AnimalID,Asid):
@@ -46,6 +51,14 @@ def update_sighting_Username(NewUserName,Username):
   database.commit()
   database.close()
       
+def retrieve_sighting(Asid):
+  database = sqlite3.connect("database.db")
+  c = database.cursor()
+  c.execute("""SELECT * FROM Sightings WHERE Asid = ?""" , [Asid])
+  occurance = c.fetchall()
+  # sighting = Sighting()
+  print(occurance)
 
-
-
+create_table_sightings()
+a = new_sighting(0,0,1605415843, 123, "AJC", "Dog")
+retrieve_sighting(a)
