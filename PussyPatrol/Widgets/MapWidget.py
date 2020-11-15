@@ -2,7 +2,7 @@ import kivy
 from kivy.uix.boxlayout import BoxLayout
 from kivy_garden.mapview import MapView, MapMarker
 from kivy.uix.screenmanager import Screen
-import Database_Managers.master_manager as mm
+import master_manager as mm
 
 kivy.require('1.11.1')
 
@@ -49,7 +49,7 @@ class MapWidget(BoxLayout):
         self.map = MapView(zoom=17, lat=54.768, lon=-1.5905)
         self.add_widget(self.map)
         self.add_sighting(54.768, -1.5905, "MARKERIDTEST")
-        self.get_nearby_sightings()
+        # self.get_nearby_sightings()
 
     def add_sighting(self, lat, lon, id):
         marker = SightingMarker(id)

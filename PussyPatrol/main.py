@@ -10,13 +10,13 @@ Window.size = (400, 550) #So we can see what the app looks like on a phone
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.widget import Widget
+from kivy.uix.button import Button
 
 # Import other screens
 from Widgets import MapWidget
 from Widgets import ProfileWidget
 from Widgets import NewSightingWidget
 from Sighting import Sighting
-
 
 
 class WindowManager(ScreenManager):
@@ -40,7 +40,6 @@ class NewSightingScreen(Screen):
     pass
 class ProfileScreen(Screen):
     pass
-
 
 
 

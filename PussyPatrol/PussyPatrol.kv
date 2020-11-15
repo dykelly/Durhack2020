@@ -1,7 +1,8 @@
 #:kivy 1.11.1
 #:import sm kivy.uix.screenmanager
-#:set bg_col [252/255, 227/255, 210/255]
-#:set or_col [242/255, 139/255, 65/255]
+#:set bg_col '#fce3d2'
+#:set or_col '#f28b41'
+#:set text_col '#291b11'
 #:import utils kivy.utils
 
 WindowManager:
@@ -16,7 +17,7 @@ WindowManager:
     name: "map"
     canvas.before:
         Color
-            rgb: bg_col
+            rgb: utils.get_color_from_hex(bg_col)
         Rectangle:
             pos: self.pos
             size: self.size
@@ -39,53 +40,86 @@ WindowManager:
 
             padding: 25, 8, 25, 25+48
             MapWidget
-#    NewMenu
-    MenuBar
+    NewMenu
+#    MenuBar
 
 
 <NewSightingScreen>:
     name: "newsighting"
     canvas.before:
         Color:
-            rgb: bg_col
+            rgb: utils.get_color_from_hex(bg_col)
         Rectangle:
             pos: self.pos
             size: self.size
     NewSightingWidget
-    MenuBar
+    NewMenu
 
 
 <ProfileScreen>:
     name: "profile"
     canvas.before:
         Color:
-            rgb: bg_col
+            rgb: utils.get_color_from_hex(bg_col)
         Rectangle:
             pos: self.pos
             size: self.size
     ProfileWidget
-    MenuBar
+    NewMenu
 
+#: set col_pressed 0
+<MenuButton@Button>:
+    background_normal: ''
+    background_color: utils.get_color_from_hex(or_col)
+    size_hint: None, None
+    font_size: 26
+    font_name: 'georgia'
+    color: utils.get_color_from_hex(text_col)
+#    height: 48
+    on_press: self.background_color = (0.1,0.8,0.95,1)
+    on_release: self.background_color = utils.get_color_from_hex(or_col)
 
-#<MenuButton@Button>:
-#    background_color: 0,0,0,0
-#    background_down:
-#    size_hint: None, None
-#
-#<NewMenu@Widget>:
-#    FloatLayout:
-#        pos_hint: {'bottom':1}
+<NewMenu@Widget>:
+    FloatLayout:
+        size_hint_x: root.width
+        pos_hint: {'bottom':1}
 #        canvas.before:
-#            Color
-#                rgb: or_col
+#            Color:
+#                rgb: utils.get_color_from_hex(or_col)
 #            Rectangle:
 #                pos: self.pos
-#                size: root.width, 70
-#        MenuButton:
-#            width: root.width/3
-#            height: self.height
-#
-
+#                size: root.width, 48
+#        GridLayout:
+        pos_hint: {'bottom':1}
+        cols:3
+        GridLayout:
+            rows:1
+#            rows:2
+            MenuButton:
+                text: "Map"
+                width: root.width/3
+                height:48
+                on_release:
+                    app.root.transition= sm.FadeTransition()
+                    app.root.current = "map"
+            MenuButton:
+                pos_hint_x: 0.5
+                text: "New cat!"
+                width: root.width/3
+                height:48
+                on_release:
+                    app.root.transition= sm.FadeTransition()
+                    app.root.current = "newsighting"
+            MenuButton:
+                text: "My profile"
+                width: root.width/3
+                height:48
+                on_release:
+                    app.root.transition= sm.FadeTransition()
+                    app.root.current = "profile"
+            Button: #does nothing, holds layout in place
+                size_hint :0.1,0.1
+                background_color:0,0,0,0
 
 
 <MenuBar>:
@@ -94,13 +128,13 @@ WindowManager:
         width: root.width
         background_normal: ''
         background_image: '' #need to set it to white first
-        background_color: utils.get_color_from_hex('#f5b642')
+        background_color: utils.get_color_from_hex(or_col)
         ActionView:
             use_separator: True
             ActionPrevious:
                 title: 'Menu bar'
 
-            ActionButton:
+            ActionButton
                 text: 'Map'
 #                size_hint_x: None
 #                width: root.width / 3
