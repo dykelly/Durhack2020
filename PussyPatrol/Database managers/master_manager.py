@@ -11,11 +11,12 @@ import math
 def sighting_identified(Asid,AnimalID):
   database = sqlite3.connect("database.db")
   c = database.cursor()
-  c.execute("""SELECT AnimalID FROM Sightings WHERE Asid = ?""", (Asid))
+  c.execute("""SELECT AnimalID FROM Sightings WHERE Asid = ?""", [Asid])
   existingId = c.fetchall()
   if existingId == []:
     ##add animalid to sighting
     sm.update_sighting_AnimalID(AnimalID,Asid)
+    print("yay")
   else:
     return "Animal is already Idenified"
 
@@ -23,7 +24,7 @@ def sighting_identified(Asid,AnimalID):
 
 ##Using Gps as long and lat and datetime as epoch
 
-def hot_puss_in_your_area(Lat, Lon ,dateTime=None,diagDistKm=5,dayPrevious=None):
+def hot_puss_in_your_area(Lat, Lon ,diagDistKm=5,dateTime=None,dayPrevious=None):
   ##get radius of Gps, and time range, then search through for these
 
   R = 6378.1 #Radius of the Earth
@@ -35,27 +36,35 @@ def hot_puss_in_your_area(Lat, Lon ,dateTime=None,diagDistKm=5,dayPrevious=None)
 
   upperlat =math.degrees(math.asin( math.sin(lat1)*math.cos(d/R) + math.cos(lat1)*math.sin(d/R)*math.cos(brng)))
 
-  upperlon = math.degrees(lon1 + math.atan2(math.sin(brng)*math.sin(d/R)*math.cos(lat1),math.cos(d/R)-math.sin(lat1)*math.sin(lat2)))
+  upperlon = math.degrees(lon1 + math.atan2(math.sin(brng)*math.sin(d/R)*math.cos(lat1),math.cos(d/R)-math.sin(lat1)*math.sin(upperlat)))
 
   lowerlat = math.degrees(math.asin( math.sin(lat1)*math.cos(d/R) + math.cos(lat1)*math.sin(d/R)*math.cos(brng2)))
 
-  lowerlon = math.degrees(lon1 + math.atan2(math.sin(brng2)*math.sin(d/R)*math.cos(lat1),math.cos(d/R)-math.sin(lat1)*math.sin(lat2)))
+  lowerlon = math.degrees(lon1 + math.atan2(math.sin(brng2)*math.sin(d/R)*math.cos(lat1),math.cos(d/R)-math.sin(lat1)*math.sin(lowerlat)))
 
-  epochPrev = dateTime - dayPrevious*86400
+  
   if dateTime != None :
+    epochPrev = dateTime - dayPrevious*86400
     database = sqlite3.connect("database.db")
-    c = data.cursor()
+    c = database.cursor()
     c.execute("""SELECT * FROM Sightings WHERE dateTime BETWEEN ? AND ? AND Lat BETWEEN ? AND ? AND Lon BETWEEN ? AND ?""", (epochPrev,dateTime,lowerlat,upperlat,lowerlon,upperlon))
     puss_in_area = c.fetchall()
   else:
     database = sqlite3.connect("database.db")
-    c = data.cursor()
+    c = database.cursor()
     c.execute("""SELECT * FROM Sightings WHERE Lat BETWEEN ? AND ? AND Lon BETWEEN ? AND ?""", (lowerlat,upperlat,lowerlon,upperlon))
     puss_in_area = c.fetchall()
 
 
   return puss_in_area
 
+#a = sm.new_sighting(50,50,555512345,"AJC","Cat")
+#sighting_identified(a,"A")
+#print(hot_puss_in_your_area(50,50,5,555512345,1))
+
+##Testing almost complete:
+##We're able to find hot_puss_in_your_area!!!
+##need to test othe function and make a variation on the hot puss one
 
 
 

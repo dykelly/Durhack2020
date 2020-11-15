@@ -14,7 +14,7 @@ def create_table_breeds():
 
 ##Adds breed to database and produces a uuid for BreedID
 def new_breed(Name, AnimalType):
-  BreedID = uuid.uuid1()
+  BreedID = str(uuid.uuid1())
   database = sqlite3.connect("database.db")
   c = database.cursor()
   try:
@@ -23,5 +23,18 @@ def new_breed(Name, AnimalType):
     return False
   database.commit()
   database.close()
+  return BreedID
+
+def retrieve_breed(BreedID):
+  database = sqlite3.connect("database.db")
+  c = database.cursor()
+  c.execute("""SELECT * FROM Breeds WHERE BreedID = ?""" , [BreedID])
+  occurance = c.fetchall()
+  return occurance
+
+#create_table_breeds()
+#a = new_breed("Siamese","cat")
+#print(retrieve_breed(a))
+##Tests succesful
 
 

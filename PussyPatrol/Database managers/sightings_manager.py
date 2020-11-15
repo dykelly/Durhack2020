@@ -15,19 +15,18 @@ def create_table_sightings():
   Lat VARCHAR NOT NULL,
   Lon VARCHAR NOT NULL,
   DateTime VARCHAR NOT NULL,
-  AnimalID VARCHAR,
   Username VARCHAR NOT NULL,
-  AnimalType VARCHAR NOT NULL)""")
+  AnimalType VARCHAR NOT NULL,
+  AnimalID VARCHAR)""")
 
 
 ##Adds new sighting and creates a uuid for Asid
-def new_sighting(Lat, Lon, DateTime, AnimalID, Username, AnimalType ):
+def new_sighting(Lat, Lon, DateTime, AnimalType, Username, AnimalID=None):
   Asid = str(uuid.uuid1())
-  print(Asid)
   database = sqlite3.connect("database.db")
   c = database.cursor()
   try:
-    c.execute("""INSERT INTO Sightings VALUES (?,?,?,?,?,?,?)""",(Asid, Lat, Lon , DateTime, AnimalID, Username, AnimalType))
+    c.execute("""INSERT INTO Sightings VALUES (?,?,?,?,?,?,?)""",(Asid, Lat, Lon , DateTime, Username,AnimalType,AnimalID))
     database.commit()
     database.close()
     return Asid
@@ -43,13 +42,15 @@ def update_sighting_AnimalID(AnimalID,Asid):
   c.execute("""UPDATE Sightings SET AnimalID = ? WHERE Asid =? """, (AnimalID,Asid))
   database.commit()
   database.close()
-
+  return(AnimalID,Asid)
+  
 def update_sighting_Username(NewUserName,Username):
   database = sqlite3.connect("database.db")
   c = database.cursor()
   c.execute("""UPDATE Sightings SET Username = ? WHERE Username = ? """, (NewUserName, Username))
   database.commit()
   database.close()
+  return(NewUserName)
       
 def retrieve_sighting(Asid):
   database = sqlite3.connect("database.db")
@@ -60,5 +61,7 @@ def retrieve_sighting(Asid):
   print(occurance)
 
 create_table_sightings()
-a = new_sighting(0,0,1605415843, 123, "AJC", "Dog")
-retrieve_sighting(a)
+#a = new_sighting(0,0,1605415843, "AJC", "Dog")
+#print(update_sighting_Username("bob","AJC"))
+#print(update_sighting_AnimalID("Cat",a))
+##Testing succesful
