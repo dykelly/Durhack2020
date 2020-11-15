@@ -1,7 +1,13 @@
 #:kivy 1.11.1
 
 <NewSightingWidget>:
-    Label:
-        font_size: 30
-        color: 0,1,0,1
-        text: "new sighting! Yay cats"
+    GridLayout:
+        cols:1
+        Label:
+            font_size: 30
+            color: 0,0,0,1
+            text: "Submit your sighting here!"
+        Button:
+            size_hint:0.4,0.2
+            pos_hint_y:0.4
+            text: "Submit"

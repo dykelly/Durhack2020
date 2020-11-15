@@ -20,12 +20,13 @@ class SightingTooltip(BoxLayout):
         print(self.pos)
         self.layout_pos = (touch_position.x+80, touch_position.y+50)
         super(SightingTooltip, self).__init__()
+        # LabelAnName()
 
-class LabelAnName(Label):
-    pass
-    # def __init__(self):
-    #     super(LabelAnName, self).__init__()
-    #     self.text = "Mad boi"
+
+# class LabelAnName(Label):
+#     def __init__(self):
+#         super(LabelAnName, self).__init__(text="Mad ", color=(0, 0, 0, 1))
+        # self.text = "Mad boi"
 
 class LabelDesc(Label):
     pass
@@ -44,6 +45,7 @@ class SightingMarker(MapMarker):
             self.remove_widget(self.current_tooltip)
             self.current_tooltip = None
         else:
+            print(self)
             tooltip = SightingTooltip(self.last_touch, None)
             self.add_widget(tooltip)
             self.current_tooltip = tooltip
