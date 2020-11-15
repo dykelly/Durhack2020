@@ -1,8 +1,7 @@
 import sqlite3
 import sightings_manager as sm
-from geopy import Point
-from geopy.distance import geodesic
-##dunno if this works
+import math
+##dunno if this works  Someone plez test
 
 ##This is where I'm gonna put all the functions that interact with multiple tables in the database for ease of access.
 ##Idk, might change that setup^
@@ -27,14 +26,48 @@ def sighting_identified(Asid,AnimalID):
 def hot_puss_in_your_area(Lat, Lon ,dateTime=None,diagDistKm=5,dayPrevious=None):
   ##get radius of Gps, and time range, then search through for these
 
-  upperlat,upperlon = geodesic(kilometers=diagDistKm).destination(Point(lat, lon), 45).format_decimal()
-  lowerlat, lowelon = geodesic(kilometers=diagDistKm).destination(Point(lat, lon), 225).format_decimal()
+  R = 6378.1 #Radius of the Earth
+  brng = 0.79 #Bearing os 45 degrees converted to radians.
+  brng2 = 3.93 #Bearing of 225 converted to radians.
+  d = diagDistKm #Distance in km
+  lat1 = math.radians(Lat) #Current lat point converted to radians
+  lon1 = math.radians(Lon) #Current long point converted to radians
+
+  upperlat =math.degrees(math.asin( math.sin(lat1)*math.cos(d/R) + math.cos(lat1)*math.sin(d/R)*math.cos(brng)))
+
+  upperlon = math.degrees(lon1 + math.atan2(math.sin(brng)*math.sin(d/R)*math.cos(lat1),math.cos(d/R)-math.sin(lat1)*math.sin(lat2)))
+
+  lowerlat = math.degrees(math.asin( math.sin(lat1)*math.cos(d/R) + math.cos(lat1)*math.sin(d/R)*math.cos(brng2)))
+
+  lowerlon = math.degrees(lon1 + math.atan2(math.sin(brng2)*math.sin(d/R)*math.cos(lat1),math.cos(d/R)-math.sin(lat1)*math.sin(lat2)))
+
   epochPrev = dateTime - dayPrevious*86400
-  database = sqlite3.connect("database.db")
-  c = data.cursor()
-  c.execute("""SELECT * FROM Sightings WHERE dateTime BETWEEN ? AND ? AND Lat BETWEEN ? AND ? AND Lon BETWEEN ? AND ?""", (epochPrev,dateTime,lowerlat,upperlat,lowerlon,upperlon))
-  puss_in_area = c.fetchall()
+  if dateTime != None :
+    database = sqlite3.connect("database.db")
+    c = data.cursor()
+    c.execute("""SELECT * FROM Sightings WHERE dateTime BETWEEN ? AND ? AND Lat BETWEEN ? AND ? AND Lon BETWEEN ? AND ?""", (epochPrev,dateTime,lowerlat,upperlat,lowerlon,upperlon))
+    puss_in_area = c.fetchall()
+  else:
+    database = sqlite3.connect("database.db")
+    c = data.cursor()
+    c.execute("""SELECT * FROM Sightings WHERE Lat BETWEEN ? AND ? AND Lon BETWEEN ? AND ?""", (lowerlat,upperlat,lowerlon,upperlon))
+
+
   return puss_in_area
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
