@@ -1,22 +1,90 @@
 #:kivy 1.11.1
+#:set bg_col [252/255, 227/255, 210/255]
 
-<PussyPatrol>:
+WindowManager:
+    MapScreen
+    NewSightingScreen
+    ProfileScreen
+
+<MapScreen>:
+    name: "map"
+    canvas.before:
+        Color
+            rgb: bg_col
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
     GridLayout:
-        cols: 4
-        rows: 1
-        orientation: "vertical"
+        rows:2
+
+        BoxLayout:
+            padding: 8
+            size_hint_y: 0.12
+            Button:
+                background_normal: ''
+                background_color: 191/255, 76/255, 63/255
+                padding: 1, 1
+                text: "Search"
 
 
-        Label:
-            font_size: 70
+        BoxLayout:
+            padding: 25, 8, 25, 25+48
+            MapWidget
 
-            text: "0"
+    MenuBar
 
-        Label:
-            font_size: 70
-            text: "0"
 
-        MapWidget:
+<NewSightingScreen>:
+    name: "newsighting"
+    canvas.before:
+        Color:
+            rgb: bg_col
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    NewSightingWidget
+    MenuBar
 
-        ProfileWidget:
+
+<ProfileScreen>:
+    name: "profile"
+    canvas.before:
+        Color:
+            rgb: bg_col
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    ProfileWidget
+    MenuBar
+
+<MenuBar>:
+    ActionBar:
+        pos_hint: {'bottom':1}
+        width: root.width
+#        background_normal: ''
+        background_image: '' #need to set it to white first
+        background_color: 242/255, 139/255, 65/255,
+        ActionView:
+            use_separator: True
+            ActionPrevious:
+                title: 'Menu bar'
+                with_previous: False
+            ActionButton:
+                text: 'Map'
+                size_hint_x: root.width / 3
+                on_release:
+                    app.root.current = "map"
+            ActionButton:
+                text: 'Add sighting'
+                size_hint_x: root.width / 3
+                on_release:
+                    app.root.current = "newsighting"
+            ActionButton:
+                text: 'My Profile'
+                size_hint_x: root.width / 3
+                on_release:
+                    print(self.size)
+                    app.root.current = "profile"
+
 
