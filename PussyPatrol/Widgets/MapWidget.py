@@ -49,7 +49,7 @@ class MapWidget(BoxLayout):
         self.map = MapView(zoom=17, lat=54.768, lon=-1.5905)
         self.add_widget(self.map)
         self.add_sighting(54.768, -1.5905, "MARKERIDTEST")
-        # self.get_nearby_sightings()
+        self.get_nearby_sightings()
 
     def add_sighting(self, lat, lon, id):
         marker = SightingMarker(id)
