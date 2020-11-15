@@ -26,11 +26,24 @@ class MenuBar(Widget):
     pass
 
 class MapScreen(Screen):
+    def UpdateMap(lat=54.768, lon=-1.5905, radius=5, time_days=31, animal_type='cat'):
+        # get current position
+        # send search query to database
+        # database returns a list of sightings
+        # clear previous sightings from map
+        # add new sightings and center map on lat,lon with a radius = radius
+
+        pass
     pass
 class NewSightingScreen(Screen):
+
     pass
 class ProfileScreen(Screen):
     pass
+
+
+
+
 
 
 Builder.load_file('./Widgets/mapwidget.kv')
@@ -40,8 +53,12 @@ kv = Builder.load_file('PussyPatrol.kv')
 
 
 class PussyPatrolApp(App):
+    # def __init__(self):
+    #     super(PussyPatrolApp, self).__init__()
+    #     self.screen_manager = WindowManager
     def build(self):
         return kv
+
 
 
 if __name__ == '__main__':
