@@ -51,6 +51,7 @@ def hot_puss_in_your_area(Lat, Lon ,dateTime=None,diagDistKm=5,dayPrevious=None)
     database = sqlite3.connect("database.db")
     c = data.cursor()
     c.execute("""SELECT * FROM Sightings WHERE Lat BETWEEN ? AND ? AND Lon BETWEEN ? AND ?""", (lowerlat,upperlat,lowerlon,upperlon))
+    puss_in_area = c.fetchall()
 
 
   return puss_in_area
