@@ -2,6 +2,7 @@
 #:import sm kivy.uix.screenmanager
 #:set bg_col [252/255, 227/255, 210/255]
 #:set or_col [242/255, 139/255, 65/255]
+#:import utils kivy.utils
 
 WindowManager:
     MapScreen
@@ -93,7 +94,7 @@ WindowManager:
         width: root.width
         background_normal: ''
         background_image: '' #need to set it to white first
-        background_color: 242/255, 139/255, 65/255,
+        background_color: utils.get_color_from_hex('#f5b642')
         ActionView:
             use_separator: True
             ActionPrevious:
