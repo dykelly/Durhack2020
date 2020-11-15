@@ -20,21 +20,24 @@ names = ["Stu", "Felix", "Rover", ""]
 images = ['https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg', 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg','', 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg']
 
 class ProfileWidget(BoxLayout): # boxlayout
+    def __init__(self, **kwargs):
+        super(ProfileWidget, self).__init__()
+        self.build()
+
     def build(self):
-        layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
+        layout = GridLayout(cols=1, spacing=10, size_hint_y=None, width = Window.width)
         # Make sure the height is such that there is something to scroll.
         layout.bind(minimum_height=layout.setter('height'))
         for i in range(len(animal)):
             txt = str(i + 1) + ". Found a wild " + animal[i]
-            if (names[i] != ""):
+            if names[i] != "":
                 txt = str(i + 1) + ". Found a " + animal[i] + " named " + names[i]
-            btn = Button(text=txt, size_hint_y=None, height=40)
+            btn = Button(text=txt, size_hint_y=None, height=40, width = Window.width)
             btn.bind(on_press=self.callback)
             layout.add_widget(btn)
-        root = ScrollView(size_hint=(1, None), size=(Window.width, Window.height))
+        root = ScrollView(size_hint=(1, None), size=(Window.width, Window.height/2))
         root.add_widget(layout)
-
-        return runTouchApp(root)
+        self.add_widget(root)
 
     def callback(self, instance):
         if instance.text.startswith('*'):
@@ -49,6 +52,3 @@ class ProfileWidget(BoxLayout): # boxlayout
             instance.text = instance.text[1:]
         else:
             instance.text = '*' + instance.text
-
-if __name__ == '__main__':
-    ProfileWidget().build()
