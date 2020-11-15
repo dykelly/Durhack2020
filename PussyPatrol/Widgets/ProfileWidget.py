@@ -15,6 +15,7 @@ from kivy.core.window import Window
 from kivy.app import runTouchApp
 from kivy.uix.image import Image, AsyncImage
 
+username = "No one"
 animal = ["bear", "cat", "dog", "horse"]
 names = ["Stu", "Felix", "Rover", ""]
 images = ['https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg', 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg','', 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg']
@@ -22,9 +23,14 @@ images = ['https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg'
 class ProfileWidget(BoxLayout): # boxlayout
     def __init__(self, **kwargs):
         super(ProfileWidget, self).__init__()
-        self.build()
+        mainlayout = GridLayout(rows=3, spacing=10, size_hint_y=None, width=Window.width, height=Window.height, pos = (0,100))
+        mainlayout.add_widget(self.buildUpper(""))
+        mainlayout.add_widget(self.buildUpper(username + "'s Profile"))
+        mainlayout.add_widget(self.buildLower())
+        self.add_widget(mainlayout)
 
-    def build(self):
+
+    def buildLower(self):
         layout = GridLayout(cols=1, spacing=10, size_hint_y=None, width = Window.width)
         # Make sure the height is such that there is something to scroll.
         layout.bind(minimum_height=layout.setter('height'))
@@ -35,9 +41,9 @@ class ProfileWidget(BoxLayout): # boxlayout
             btn = Button(text=txt, size_hint_y=None, height=40, width = Window.width)
             btn.bind(on_press=self.callback)
             layout.add_widget(btn)
-        root = ScrollView(size_hint=(1, None), size=(Window.width, Window.height/2))
+        root = ScrollView(size_hint=(1, None), size=(Window.width, Window.height))
         root.add_widget(layout)
-        self.add_widget(root)
+        return root
 
     def callback(self, instance):
         if instance.text.startswith('*'):
@@ -46,9 +52,16 @@ class ProfileWidget(BoxLayout): # boxlayout
         else:
             imgsource = images[(int)(instance.text[0]) - 1]
             if imgsource != "":
-                aimg = AsyncImage(source=imgsource, pos = (instance.pos[0] + instance.width/4, instance.pos[1]),  size = instance.size)
+                aimg = AsyncImage(source=imgsource,  height = instance.height, width = instance.height*2)
+                aimg.pos = (instance.pos[0] + instance.width - aimg.width, instance.pos[1])
                 instance.add_widget(aimg)
         if instance.text.startswith('*'):
             instance.text = instance.text[1:]
         else:
             instance.text = '*' + instance.text
+
+    def buildUpper(self, txt):
+        label = Label(text = txt, color = "#000000")
+        #aimg = AsyncImage(source=imgsource, height=self.height - 10, width=self.width)
+        #screen.add_widget(aimg)
+        return label
