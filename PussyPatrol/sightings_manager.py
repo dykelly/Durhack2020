@@ -1,7 +1,7 @@
 import sqlite3
 import uuid
 
-##Labelling as follows: Asid = animal sighting id; Gps and DateTime are obvious; AnimalID = type of animal??? (I think) ; Username = username of user who logged the sighting
+##Labelling as follows: Asid = animal sighting id; Gps and DateTime are obvious; AnimalID = The ID for a specific individual animal i.e Mittens ; Username = username of user who logged the sighting
 
 ##Sightings is the name of the table uwu
 
@@ -12,7 +12,7 @@ def create_table_sightings():
   (Asid VARCHAR PRIMARY KEY,
   Gps VARCHAR NOT NULL,
   DateTime VARCHAR NOT NULL,
-  AnimalID VARCHAR NOT NULL,
+  AnimalID VARCHAR ,
   Username VARCHAR NOT NULL)""")
 
 
