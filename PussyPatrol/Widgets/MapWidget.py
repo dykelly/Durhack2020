@@ -46,7 +46,7 @@ class SightingMarker(MapMarker):
 class MapWidget(BoxLayout):
     def __init__(self, **kwargs):
         super(MapWidget, self).__init__(**kwargs)
-        self.map = MapView(zoom=17, lat=0, lon=-0)
+        self.map = MapView(zoom=17, lat=54.768, lon=-1.5905)
         self.add_widget(self.map)
         self.add_sighting(54.768, -1.5905, "MARKERIDTEST")
         self.get_nearby_sightings()
@@ -64,7 +64,9 @@ class MapWidget(BoxLayout):
 
     def get_nearby_sightings(self):
         nearby_sightings = mm.hot_puss_in_your_area(self.map.lat, self.map.lon)
-        print(nearby_sightings)
+        for sighting in nearby_sightings:
+            pass
+            
 
     def on_map_relocated(self):
         print("Map moved")
