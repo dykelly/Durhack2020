@@ -16,6 +16,8 @@ def sighting_identified(Asid,AnimalID):
   if existingId == [(None,)]:
     ##add animalid to sighting
     sm.update_sighting_AnimalID(AnimalID,Asid)
+    database.commit()
+    database.close()
   else:
     return "Animal is already Idenified"
 
@@ -57,10 +59,13 @@ def hot_puss_in_your_area(Lat, Lon ,diagDistKm=5,dateTime=None,dayPrevious=None)
 
   return puss_in_area
 
-
+#sm.create_table_sightings()
 #a = sm.new_sighting(50,50,555512345,"AJC","Cat")
+#b = sm.new_sighting(54.7732,-1.5764, 123456789,"Cat","Stacy")
 #print(sighting_identified(a,"B"))
 #print(hot_puss_in_your_area(50,50,5,555512345,1))
+#print(hot_puss_in_your_area(54.7732, -1.5764))
+
 
 ##Testing almost complete:
 ##We're able to find hot_puss_in_your_area!!!
