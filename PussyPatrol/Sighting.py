@@ -1,9 +1,9 @@
 class Sighting():
-   def __init__(self, Asid, Lat, Lon, DateTime, AnimalID, Username):
+   def __init__(self, Asid, Lat, Lon, DateTime, Username, Animal_type, AnimalID=None):
         self.Asid = Asid
         self.Lat = Lat
         self.Lon = Lon
         self.DateTime = DateTime
-        self.AnimalID = AnimalID
         self.Username = Username
-
+        self.AnimalID = AnimalID
+        self.Animal_type = Animal_type

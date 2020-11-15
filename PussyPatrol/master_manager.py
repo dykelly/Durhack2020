@@ -1,6 +1,7 @@
 import sqlite3
 import sightings_manager as sm
 import math
+from Sighting import Sighting
 ##dunno if this works  Someone plez test
 
 ##This is where I'm gonna put all the functions that interact with multiple tables in the database for ease of access.
@@ -25,7 +26,7 @@ def sighting_identified(Asid,AnimalID):
 
 ##Using Gps as long and lat and datetime as epoch
 
-def hot_puss_in_your_area(Lat, Lon ,diagDistKm=5,dateTime=None,dayPrevious=None):
+def hot_puss_in_your_area(Lat, Lon ,diagDistKm=10,dateTime=None,dayPrevious=None):
   ##get radius of Gps, and time range, then search through for these
 
   R = 6378.1 #Radius of the Earth
@@ -53,11 +54,11 @@ def hot_puss_in_your_area(Lat, Lon ,diagDistKm=5,dateTime=None,dayPrevious=None)
   else:
     database = sqlite3.connect("database.db")
     c = database.cursor()
-    c.execute("""SELECT * FROM Sightings WHERE Lat BETWEEN ? AND ? AND Lon BETWEEN ? AND ?""", (lowerlat,upperlat,lowerlon,upperlon))
+    c.execute("""SELECT * FROM Sightings WHERE Lat BETWEEN ? AND ? """, (lowerlat,upperlat))#,lowerlon,upperlon))   AND Lon BETWEEN ? AND ?"""
     puss_in_area = c.fetchall()
 
-
-  return puss_in_area
+    sightings = [Sighting(*puss) for puss in puss_in_area]
+  return sightings
 
 #sm.create_table_sightings()
 #a = sm.new_sighting(50,50,555512345,"AJC","Cat")

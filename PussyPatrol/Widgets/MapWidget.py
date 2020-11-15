@@ -63,9 +63,12 @@ class MapWidget(BoxLayout):
         self.map.lon = lon
 
     def get_nearby_sightings(self):
+        print(f'getting sightings near {self.map.lat} {self.map.lon}')
         nearby_sightings = mm.hot_puss_in_your_area(self.map.lat, self.map.lon)
+        print(nearby_sightings)
         for sighting in nearby_sightings:
-            pass
+            # print(sighting)
+            self.add_sighting(sighting.Lat, sighting.Lon, sighting.Asid)
             
 
     def on_map_relocated(self):

@@ -2,6 +2,12 @@ import kivy
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.core.window import Window
+import breeds_manager as bm
+import identified_manager as im
+import master_manager as mm
+import pictures_manager as pm
+import sightings_manager as sm
+import users_manager as um
 
 kivy.require('1.11.1')
 Window.size = (400, 550) #So we can see what the app looks like on a phone
