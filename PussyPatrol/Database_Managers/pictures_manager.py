@@ -23,7 +23,7 @@ def new_picture(Asid,Image):
     return False
   database.commit()
   database.close()
-  return Asid
+  
 
 def retrieve_picture(Asid):
   database = sqlite3.connect("database.db")
