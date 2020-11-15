@@ -15,16 +15,17 @@ def create_table_sightings():
   Lon VARCHAR NOT NULL,
   DateTime VARCHAR NOT NULL,
   AnimalID VARCHAR ,
-  Username VARCHAR NOT NULL)""")
+  Username VARCHAR NOT NULL,
+  AnimalType VARCHAR NOT NULL)""")
 
 
 ##Adds new sighting and creates a uuid for Asid
-def new_sighting(Lat, Lon, DateTime, AnimalID, Username ):
+def new_sighting(Lat, Lon, DateTime, AnimalID, Username, AnimalType ):
   Asid = uuid.uuid1()
   database = sqlite3.connect("database.db")
   c = database.cursor()
   try:
-    c.execute("""INSERT INTO Sightings VALUES (?,?,?,?,?,?)""",(Asid, Lat, Lon , DateTime, AnimalID, Username))
+    c.execute("""INSERT INTO Sightings VALUES (?,?,?,?,?,?,?)""",(Asid, Lat, Lon , DateTime, AnimalID, Username, AnimalType))
   except:
     return False
   database.commit()
