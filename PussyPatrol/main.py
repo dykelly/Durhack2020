@@ -12,10 +12,10 @@ from kivy.uix.label import Label
 from kivy.uix.widget import Widget
 
 # Import other screens
-from PussyPatrol.Widgets import MapWidget
-from PussyPatrol.Widgets import ProfileWidget
-from PussyPatrol.Widgets import NewSightingWidget
-from PussyPatrol.Sighting import Sighting
+from Widgets import MapWidget
+from Widgets import ProfileWidget
+from Widgets import NewSightingWidget
+from Sighting import Sighting
 
 
 
