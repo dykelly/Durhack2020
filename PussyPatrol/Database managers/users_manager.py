@@ -38,3 +38,4 @@ def update_username(Username, newUsername, Password):
         database.commit()
         database.close()
         return "Password changed successfully!"
+

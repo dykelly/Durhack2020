@@ -14,7 +14,7 @@ def create_table_pictures():
 
 ##Adds new pic to database and creates it's Pid (a uuid)
 def new_picture(Asid,Image):
-  Pid = uuid.uuid1()
+  Pid = str(uuid.uuid1())
   database = sqlite3.connect("database.db")
   c = database.cursor()
   try:
@@ -23,3 +23,17 @@ def new_picture(Asid,Image):
     return False
   database.commit()
   database.close()
+  return Asid
+
+def retrieve_picture(Asid):
+  database = sqlite3.connect("database.db")
+  c = database.cursor()
+  c.execute("""SELECT * FROM Pictures WHERE Asid = ?""", [Asid])
+  occurance = c.fetchall()
+  return occurance
+
+#create_table_pictures()
+#c = new_picture("123","im.jpeg")
+#print(retrieve_picture(c))
+##Testing Successful
+
