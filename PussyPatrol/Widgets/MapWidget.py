@@ -35,9 +35,10 @@ class SightingMarker(MapMarker):
         if self.current_tooltip:
             self.remove_widget(self.current_tooltip)
             self.current_tooltip = None
-        tooltip = SightingTooltip(self.last_touch, None)
-        self.add_widget(tooltip)
-        self.current_tooltip = tooltip
+        else:
+            tooltip = SightingTooltip(self.last_touch, None)
+            self.add_widget(tooltip)
+            self.current_tooltip = tooltip
 
 
 
