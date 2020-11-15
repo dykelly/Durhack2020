@@ -60,7 +60,7 @@ def retrieve_sighting(Asid):
   # sighting = Sighting()
   print(occurance)
 
-create_table_sightings()
+#create_table_sightings()
 #a = new_sighting(0,0,1605415843, "AJC", "Dog")
 #print(update_sighting_Username("bob","AJC"))
 #print(update_sighting_AnimalID("Cat",a))
