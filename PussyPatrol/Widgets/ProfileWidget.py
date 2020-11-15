@@ -16,16 +16,18 @@ from kivy.app import runTouchApp
 from kivy.uix.image import Image, AsyncImage
 
 username = "No one"
+profileimage = "https://th.bing.com/th/id/OIP.dfyKJpDi_qZolDSOSjXZhgHaGJ?pid=Api&rs=1"
 animal = ["bear", "cat", "dog", "horse"]
 names = ["Stu", "Felix", "Rover", ""]
-images = ['https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg', 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg','', 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg']
+images = ['https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg', 'http://2.bp.blogspot.com/-fQiZkz9Zlzg/T_xe2X2Ia3I/AAAAAAAAA0Q/VPS8Mb8xtIQ/s1600/cat+15.jpg','', 'https://d.newsweek.com/en/full/1583795/coronavirus-us.jpg']
 
 class ProfileWidget(BoxLayout): # boxlayout
     def __init__(self, **kwargs):
         super(ProfileWidget, self).__init__()
-        mainlayout = GridLayout(rows=3, spacing=10, size_hint_y=None, width=Window.width, height=Window.height, pos = (0,100))
+        mainlayout = GridLayout(rows=4, spacing=10, size_hint_y=None, width=Window.width, height=Window.height, pos = (0,100))
         mainlayout.add_widget(self.buildUpper(""))
         mainlayout.add_widget(self.buildUpper(username + "'s Profile"))
+        mainlayout.add_widget(self.buildMiddle(profileimage))
         mainlayout.add_widget(self.buildLower())
         self.add_widget(mainlayout)
 
@@ -38,6 +40,7 @@ class ProfileWidget(BoxLayout): # boxlayout
             txt = str(i + 1) + ". Found a wild " + animal[i]
             if names[i] != "":
                 txt = str(i + 1) + ". Found a " + animal[i] + " named " + names[i]
+                self.currentimage = i
             btn = Button(text=txt, size_hint_y=None, height=40, width = Window.width)
             btn.bind(on_press=self.callback)
             layout.add_widget(btn)
@@ -62,6 +65,10 @@ class ProfileWidget(BoxLayout): # boxlayout
 
     def buildUpper(self, txt):
         label = Label(text = txt, color = "#000000")
-        #aimg = AsyncImage(source=imgsource, height=self.height - 10, width=self.width)
-        #screen.add_widget(aimg)
         return label
+
+    def buildMiddle(self, imgsource):
+        layout = GridLayout(cols=1, spacing=10, size_hint_y=None, width=Window.width)
+        aimg = AsyncImage(source=imgsource, height=self.height, width=self.width)
+        layout.add_widget(aimg)
+        return layout
