@@ -8,9 +8,9 @@ def create_table_breeds():
   database = sqlite3.connect("database.db")
   c = database.cursor()
   c.execute("""CREATE TABLE IF NOT EXISTS Breeds
-  (BreedID VARCHAR PRIMARY KEY,
-  Name VARCHAR NOT NULL,
-  AnimalType VARCHAR NOT NULL,""")
+    (BreedID VARCHAR PRIMARY KEY,
+    Name VARCHAR NOT NULL,
+    AnimalType VARCHAR NOT NULL)""")
 
 ##Adds breed to database and produces a uuid for BreedID
 def new_breed(Name, AnimalType):

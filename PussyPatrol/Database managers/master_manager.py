@@ -71,4 +71,3 @@ def hot_puss_in_your_area(Lat, Lon ,dateTime=None,diagDistKm=5,dayPrevious=None)
 
 
 
-

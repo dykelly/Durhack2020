@@ -14,7 +14,7 @@ def create_table_sightings():
   Lat VARCHAR NOT NULL,
   Lon VARCHAR NOT NULL,
   DateTime VARCHAR NOT NULL,
-  AnimalID VARCHAR ,
+  AnimalID VARCHAR,
   Username VARCHAR NOT NULL,
   AnimalType VARCHAR NOT NULL)""")
 
@@ -47,8 +47,5 @@ def update_sighting_Username(NewUserName,Username):
   database.close()
       
 
-
-
-  
 
 

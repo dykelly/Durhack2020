@@ -28,9 +28,11 @@ def new_identified(Name,BreedID, Username):
 
 
 
-def new_name(NewName,Name):
+def new_name(NewName,Name, AnimalID):
   database = sqlite3.connect("database.db")
   c = database.cursor()
-  c.execute("""UPDATE Identified SET Name = ? WHERE Name = ?""", (NewName,Name))
+  c.execute("""UPDATE Identified SET Name = ? WHERE Name = ? AND AnimalID = ?""", (NewName,Name,AnimalID))
   database.commit()
   database.close()
+
+

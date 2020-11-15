@@ -23,3 +23,4 @@ def new_picture(Asid,Image):
     return False
   database.commit()
   database.close()
+
