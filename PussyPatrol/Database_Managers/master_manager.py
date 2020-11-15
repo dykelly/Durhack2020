@@ -13,10 +13,9 @@ def sighting_identified(Asid,AnimalID):
   c = database.cursor()
   c.execute("""SELECT AnimalID FROM Sightings WHERE Asid = ?""", [Asid])
   existingId = c.fetchall()
-  if existingId == []:
+  if existingId == [(None,)]:
     ##add animalid to sighting
     sm.update_sighting_AnimalID(AnimalID,Asid)
-    print("yay")
   else:
     return "Animal is already Idenified"
 
@@ -58,8 +57,9 @@ def hot_puss_in_your_area(Lat, Lon ,diagDistKm=5,dateTime=None,dayPrevious=None)
 
   return puss_in_area
 
+
 #a = sm.new_sighting(50,50,555512345,"AJC","Cat")
-#sighting_identified(a,"A")
+#print(sighting_identified(a,"B"))
 #print(hot_puss_in_your_area(50,50,5,555512345,1))
 
 ##Testing almost complete:
