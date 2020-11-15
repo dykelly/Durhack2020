@@ -13,12 +13,12 @@ def create_table_breeds():
   Tyype VARCHAR NOT NULL,""")
 
 ##Adds breed to database and produces a uuid for BreedID
-def new_breed(Name, Tyype):
+def new_breed(Name, Animal_type):
   BreedID = uuid.uuid1()
   database = sqlite3.connect("database.db")
   c = database.cursor()
   try:
-    c.execute("""INSERT INTO Breeds VALUES (?,?,?)""", (BreedID,Name,Tyype))
+    c.execute("""INSERT INTO Breeds VALUES (?,?,?)""", (BreedID,Name,Animal_type))
   except:
     return False
   database.commit()

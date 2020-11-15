@@ -4,25 +4,27 @@ import uuid
 ##Labelling as follows: Asid = animal sighting id; Gps and DateTime are obvious; AnimalID = The ID for a specific individual animal i.e Mittens ; Username = username of user who logged the sighting
 
 ##Sightings is the name of the table uwu
+##NOTE THAT IVE CHANGED GPS TO TWO SEPARATE VALUES OF LAT AND LON
 
 def create_table_sightings():
   database = sqlite3.connect("database.db")
   c = database.cursor()
   c.execute("""CREATE TABLE IF NOT EXISTS Sightings
   (Asid VARCHAR PRIMARY KEY,
-  Gps VARCHAR NOT NULL,
+  Lat VARCHAR NOT NULL,
+  Lon VARCHAR NOT NULL,
   DateTime VARCHAR NOT NULL,
   AnimalID VARCHAR ,
   Username VARCHAR NOT NULL)""")
 
 
 ##Adds new sighting and creates a uuid for Asid
-def new_sighting(Gps, DateTime, AnimalID, Username ):
+def new_sighting(Lat, Lon, DateTime, AnimalID, Username ):
   Asid = uuid.uuid1()
   database = sqlite3.connect("database.db")
   c = database.cursor()
   try:
-    c.execute("""INSERT INTO Sightings VALUES (?,?,?,?,?)""",(Asid, Gps, DateTime, AnimalID, Username))
+    c.execute("""INSERT INTO Sightings VALUES (?,?,?,?,?,?)""",(Asid, Lat, Lon , DateTime, AnimalID, Username))
   except:
     return False
   database.commit()

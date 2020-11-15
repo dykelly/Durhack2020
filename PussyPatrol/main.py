@@ -15,6 +15,7 @@ from kivy.uix.widget import Widget
 from PussyPatrol.Widgets import MapWidget
 from PussyPatrol.Widgets import ProfileWidget
 from PussyPatrol.Widgets import NewSightingWidget
+from PussyPatrol.Sighting import Sighting
 
 
 
@@ -36,6 +37,7 @@ Builder.load_file('./Widgets/mapwidget.kv')
 Builder.load_file('./Widgets/profilewidget.kv')
 Builder.load_file('./Widgets/newsightingwidget.kv')
 kv = Builder.load_file('PussyPatrol.kv')
+
 
 class PussyPatrolApp(App):
     def build(self):
