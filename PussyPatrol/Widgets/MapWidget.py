@@ -2,7 +2,7 @@ import kivy
 from kivy.uix.boxlayout import BoxLayout
 from kivy_garden.mapview import MapView, MapMarker
 from kivy.uix.screenmanager import Screen
-import Database_Managers.master_manager as mm
+import master_manager as mm
 
 kivy.require('1.11.1')
 
