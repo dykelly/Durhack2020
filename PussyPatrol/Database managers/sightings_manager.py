@@ -28,6 +28,14 @@ def new_sighting(Gps, DateTime, AnimalID, Username ):
   database.commit()
   database.close()
 
+##updates spectifcally the AnimalID for a sighting, doesn't check it if an animalID is already assigned
+def update_sighting_AnimalID(AnimalID,Asid):
+  database = sqlite3.connect("database.db")
+  c = database.cursor()
+  c.execute("""UPDATE Sightings SET AnimalID = ? WHERE Asid =? """, (AnimalID,Asid))
+  database.commit()
+  database.close()
+
 def update_sighting_Username(NewUserName,Username):
   database = sqlite3.connect("database.db")
   c = database.cursor()
