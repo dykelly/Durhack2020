@@ -26,6 +26,8 @@ def new_identified(Name,BreedID, Username):
   database.commit()
   database.close()
 
+
+
 def new_name(NewName,Name):
   database = sqlite3.connect("database.db")
   c = database.cursor()
